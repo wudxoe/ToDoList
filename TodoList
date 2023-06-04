@@ -1,0 +1,185 @@
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, ScrollView } from 'react-native';
+
+export default function App() {
+  const [task, setTask] = useState('');
+  const [dueDate, setDueDate] = useState('');
+  const [taskList, setTaskList] = useState([]);
+
+  const addTask = () => {
+    if (task.length > 0) {
+      const newTask = {
+        task: task,
+        dueDate: dueDate,
+        completed: false,
+      };
+      setTaskList([...taskList, newTask]);
+      setTask('');
+      setDueDate('');
+    }
+  };
+
+  const toggleTaskCompletion = (index) => {
+    const newTaskList = [...taskList];
+    newTaskList[index].completed = !newTaskList[index].completed;
+    setTaskList(newTaskList);
+  };
+
+  const deleteTask = (index) => {
+    const newTaskList = [...taskList];
+    newTaskList.splice(index, 1);
+    setTaskList(newTaskList);
+  };
+
+  const sortByDueDate = () => {
+    const sortedTasks = [...taskList];
+    sortedTasks.sort((a, b) => {
+      return new Date(a.dueDate) - new Date(b.dueDate);
+    });
+    setTaskList(sortedTasks);
+  };
+
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>Todo List</Text>
+      <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setTask(text)}
+          value={task}
+          placeholder="Enter a task"
+        />
+        <TextInput
+          style={styles.input}
+          onChangeText={(text) => setDueDate(text)}
+          value={dueDate}
+          placeholder="Due Date"
+        />
+        <TouchableOpacity style={styles.addButton} onPress={addTask}>
+          <Text style={styles.addButtonText}>Add</Text>
+        </TouchableOpacity>
+      </View>
+      <ScrollView style={styles.taskListContainer}>
+        {taskList.map((task, index) => (
+          <View key={index} style={[styles.taskContainer, task.completed && styles.completedTask]}>
+            <TouchableOpacity
+              style={styles.checkbox}
+              onPress={() => toggleTaskCompletion(index)}
+            >
+              {task.completed && <Text style={styles.checkmark}>&#x2713;</Text>}
+            </TouchableOpacity>
+            <View>
+              <Text style={styles.taskText}>{task.task}</Text>
+              <Text style={styles.dueDateText}>{task.dueDate}</Text>
+            </View>
+            <TouchableOpacity
+              style={styles.deleteButton}
+              onPress={() => deleteTask(index)}
+            >
+              <Text style={styles.deleteButtonText}>Delete</Text>
+            </TouchableOpacity>
+          </View>
+        ))}
+      </ScrollView>
+      <TouchableOpacity style={styles.sortButton} onPress={sortByDueDate}>
+        <Text style={styles.sortButtonText}>Sort by Due Date</Text>
+      </TouchableOpacity>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 20,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginBottom: 20,
+  },
+  input: {
+    width: '40%',
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+  },
+  addButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+  },
+  addButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  taskListContainer: {
+    width: '100%',
+    flex: 1,
+  },
+  taskContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#f2f2f2',
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 5,
+  },
+  completedTask: {
+    backgroundColor: '#d4edda',
+  },
+  checkbox: {
+    width: 24,
+    height: 24,
+    borderRadius: 12,
+    borderWidth: 2,
+    borderColor: '#007bff',
+    marginRight: 10,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  checkmark: {
+    color: '#007bff',
+    fontSize: 16,
+  },
+  taskText: {
+    fontSize: 16,
+    marginBottom: 5,
+  },
+  dueDateText: {
+    fontSize: 12,
+    color: '#777',
+  },
+  deleteButton: {
+    backgroundColor: '#dc3545',
+    padding: 5,
+    borderRadius: 5,
+  },
+  deleteButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  sortButton: {
+    backgroundColor: '#007bff',
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 10,
+  },
+  sortButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
