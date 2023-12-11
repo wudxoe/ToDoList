@@ -26,20 +26,8 @@ const TabNavigator = () => {
           activeBackgroundColor : "skyblue",
           activeTintColor : "blue",
           //inactiveBackgroundColor : 'yellow',
-          style:{
-            backgroundColor : "#c6cbef"
-          },
-        }}
-        screenOptions={({route})=>({
-          tabBarLabel:route.name,
-          tabBarIcon:({focused})=>(
-            TabBarIcon(focused,route.name)
-          )
-        })}>
-        <Tab.Screen name = "Home" component = {Home}
-          options = {{
-            tabBarLabel: '홈',
-            title: '홈',
+     야',
+            title: '야',
             headerStyle: {backgroundColor: 'lightskyblue'},
             headerTintColor: 'white',
             headerLeft: HomeIcon,
@@ -47,7 +35,7 @@ const TabNavigator = () => {
               <Button
                 title = 'INFO'
                 onPress = {() => {
-                  alert('이름 : 안준철\n학번 : 2019243016\n개발내용 : Todo-List\n개발목적 : 개인프로젝트')
+                  alert('이름 : 박지영\n학번 : 2020243081\n개발내용 : ToDoList\n개발목적 : 개인프로젝트')
                 }}
               />
             )
