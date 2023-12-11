@@ -38,8 +38,8 @@ const TabNavigator = () => {
         })}>
         <Tab.Screen name = "Home" component = {Home}
           options = {{
-            tabBarLabel: '야',
-            title: '야',
+            tabBarLabel: '홈',
+            title: '홈',
             headerStyle: {backgroundColor: 'lightskyblue'},
             headerTintColor: 'white',
             headerLeft: HomeIcon,
