@@ -51,7 +51,7 @@ const StackNavigator = () => {
         />
         <Stack.Screen name = "Home" component = {TabNavigator}
           options = {{
-            title: '홈',
+            title: '야',
             headerTitle: HomeIcon,
             headerStyle: {backgroundColor: 'lightskyblue'},
             headerRight: () => (
