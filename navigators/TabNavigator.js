@@ -26,7 +26,19 @@ const TabNavigator = () => {
           activeBackgroundColor : "skyblue",
           activeTintColor : "blue",
           //inactiveBackgroundColor : 'yellow',
-     야',
+          style:{
+            backgroundColor : "#c6cbef"
+          },
+        }}
+        screenOptions={({route})=>({
+          tabBarLabel:route.name,
+          tabBarIcon:({focused})=>(
+            TabBarIcon(focused,route.name)
+          )
+        })}>
+        <Tab.Screen name = "Home" component = {Home}
+          options = {{
+            tabBarLabel: '야',
             title: '야',
             headerStyle: {backgroundColor: 'lightskyblue'},
             headerTintColor: 'white',
